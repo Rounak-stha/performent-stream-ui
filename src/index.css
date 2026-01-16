@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Trading Terminal Design System - Dark theme with neon accents */
+
+@layer base {
+  :root {
+    /* Dark terminal background */
+    --background: 220 20% 8%;
+    --foreground: 210 20% 90%;
+
+    --card: 220 20% 10%;
+    --card-foreground: 210 20% 90%;
+
+    --popover: 220 20% 12%;
+    --popover-foreground: 210 20% 90%;
+
+    /* Cyan/teal accent */
+    --primary: 180 70% 50%;
+    --primary-foreground: 220 20% 8%;
+
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 210 20% 80%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 210 15% 55%;
+
+    --accent: 220 15% 20%;
+    --accent-foreground: 210 20% 90%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 180 70% 50%;
+
+    --radius: 0.25rem;
+
+    /* Custom trading colors */
+    --price-up: 145 80% 45%;
+    --price-up-glow: 145 80% 55%;
+    --price-down: 0 75% 55%;
+    --price-down-glow: 0 75% 65%;
+    --neutral: 210 15% 50%;
+
+    /* Terminal grid lines */
+    --grid-line: 220 15% 15%;
+
+    /* Glow effects */
+    --glow-primary: 0 0 20px hsl(180 70% 50% / 0.3);
+    --glow-up: 0 0 15px hsl(145 80% 45% / 0.4);
+    --glow-down: 0 0 15px hsl(0 75% 55% / 0.4);
+
+    --sidebar-background: 220 20% 8%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 180 70% 50%;
+    --sidebar-primary-foreground: 220 20% 8%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 180 70% 50%;
+    --font-sans: Nunito, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  }
+
+  .dark {
+    --background: 220 20% 8%;
+    --foreground: 210 20% 90%;
+    --card: 220 20% 10%;
+    --card-foreground: 210 20% 90%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 210 20% 90%;
+    --primary: 180 70% 50%;
+    --primary-foreground: 220 20% 8%;
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 210 20% 80%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 210 15% 55%;
+    --accent: 220 15% 20%;
+    --accent-foreground: 210 20% 90%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 180 70% 50%;
+    --font-sans: Nunito, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --radius: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Consolas', monospace;
+  }
+}
+
+@layer components {
+  /* Virtual list row styles */
+  .ticker-row {
+    @apply flex items-center px-4 py-2 border-b border-border transition-colors duration-150;
+  }
+
+  .ticker-row:hover {
+    @apply bg-accent/50;
+  }
+
+  .ticker-row-even {
+    @apply bg-muted/30;
+  }
+
+  .ticker-row-odd {
+    @apply bg-background;
+  }
+
+  /* Price change indicators */
+  .price-up {
+    color: hsl(var(--price-up));
+    text-shadow: var(--glow-up);
+  }
+
+  .price-down {
+    color: hsl(var(--price-down));
+    text-shadow: var(--glow-down);
+  }
+
+  .price-neutral {
+    color: hsl(var(--neutral));
+  }
+
+  /* Flash animations for updates */
+  .flash-up {
+    animation: flash-green 0.6s ease-out;
+  }
+
+  .flash-down {
+    animation: flash-red 0.6s ease-out;
+  }
+
+  /* Stats card glow */
+  .stats-card {
+    @apply bg-card border border-border rounded-lg p-4;
+    box-shadow: inset 0 1px 0 0 hsl(var(--primary) / 0.1);
+  }
+
+  .stats-card-warning {
+    box-shadow: inset 0 0 0 1px hsl(var(--price-down) / 0.5), var(--glow-down);
+  }
+
+  .stats-card-healthy {
+    box-shadow: inset 0 0 0 1px hsl(var(--price-up) / 0.3);
+  }
+
+  /* Control panel styling */
+  .control-slider {
+    @apply w-full h-2 rounded-full bg-secondary appearance-none cursor-pointer;
+  }
+
+  .control-slider::-webkit-slider-thumb {
+    @apply appearance-none w-4 h-4 rounded-full bg-primary cursor-pointer;
+    box-shadow: var(--glow-primary);
+  }
+
+  /* Terminal header */
+  .terminal-header {
+    @apply bg-gradient-to-r from-primary/10 via-transparent to-transparent border-b border-border;
+  }
+
+  /* Pulse indicator */
+  .pulse-indicator {
+    @apply inline-block w-2 h-2 rounded-full;
+    animation: pulse-glow 1.5s ease-in-out infinite;
+  }
+
+  .pulse-indicator-active {
+    @apply bg-[hsl(var(--price-up))];
+  }
+
+  .pulse-indicator-throttled {
+    @apply bg-[hsl(var(--price-down))];
+  }
+}
+
+@layer utilities {
+  /* Scrollbar styling */
+  .terminal-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .terminal-scrollbar::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  .terminal-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-secondary rounded-full;
+  }
+
+  .terminal-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+
+  /* Monospace numbers for alignment */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes flash-green {
+  0% {
+    background-color: hsl(145 80% 45% / 0.4);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes flash-red {
+  0% {
+    background-color: hsl(0 75% 55% / 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px currentColor;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 16px currentColor;
+  }
+}
+
+/* Google Font import */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
